@@ -18,6 +18,11 @@ module.exports = {
   plugins: [
     'react'
   ],
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
   ignorePatterns: [
     '.next',
     'build',
