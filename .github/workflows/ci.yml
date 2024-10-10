@@ -43,3 +43,5 @@ jobs:
         run: yarn build
       - name: Test
         run: yarn test
+        env:
+          CYPRESS_CACHE_FOLDER: ./.cypress-cache/
