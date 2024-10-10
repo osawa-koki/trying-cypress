@@ -28,11 +28,13 @@ jobs:
         id: cypress_cache_id
         uses: actions/cache@v4
         with:
-          path: ~/.cache/Cypress/
+          path: ./.cypress-cache/
           key: cypress-${{ matrix.node-version }}-${{ hashFiles('./**/yarn.lock') }}
       - name: Install dependencies
-        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
+        if: steps.node_modules_cache_id.outputs.cache-hit != 'true' || steps.cypress_cache_id.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --non-interactive
+        env:
+          CYPRESS_CACHE_FOLDER: ./.cypress-cache/
       - name: Type check
         run: yarn type-check
       - name: Linter check
