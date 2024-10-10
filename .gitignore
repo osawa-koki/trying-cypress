@@ -1,5 +1,14 @@
-# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,nextjs,react,node,visualstudio,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,nextjs,react,node,visualstudio,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/node,linux,macos,react,nextjs,windows,visualstudio,visualstudiocode,cypressio
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,linux,macos,react,nextjs,windows,visualstudio,visualstudiocode,cypressio
+
+### CypressIO ###
+# gitignore template for the CypressIO, browser test framework
+# website: https://www.cypress.io/
+
+cypress/results/*
+cypress/reports/*
+cypress/screenshots/*
+cypress/videos/*
 
 ### Linux ###
 *~
@@ -664,4 +673,4 @@ FodyWeavers.xsd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,nextjs,react,node,visualstudio,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/node,linux,macos,react,nextjs,windows,visualstudio,visualstudiocode,cypressio
