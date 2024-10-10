@@ -16,14 +16,13 @@
   "scripts": {
     "dev": "yarn next dev --port 8000",
     "server": "http-server ./out/ --port 8000",
+    "wait-on-server": "wait-on http://localhost:8000",
     "build": "next build",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx .",
     "lint:fix": "eslint --fix --ext .ts,.tsx,.js,.jsx .",
     "type-check": "tsc --noEmit",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "test": "yarn server & wait-on http://localhost:8000 && cypress run",
-    "test:dev": "yarn dev & wait-on http://localhost:8000 && cypress run"
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@types/node": "^22.7.5",
