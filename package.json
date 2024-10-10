@@ -20,7 +20,8 @@
     "lint": "eslint --ext .ts,.tsx,.js,.jsx .",
     "lint:fix": "eslint --fix --ext .ts,.tsx,.js,.jsx .",
     "type-check": "tsc --noEmit",
-    "test": "yarn server & wait-on http://localhost:8000 && cypress run"
+    "test": "yarn server & wait-on http://localhost:8000 && cypress run",
+    "test:dev": "yarn dev & wait-on http://localhost:8000 && cypress run"
   },
   "dependencies": {
     "@types/node": "^22.7.5",
