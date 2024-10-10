@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import '@/styles/style.scss'
 import '@/styles/menu.scss'
