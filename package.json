@@ -19,7 +19,8 @@
     "start": "next start",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx .",
     "lint:fix": "eslint --fix --ext .ts,.tsx,.js,.jsx .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "yarn dev & wait-on http://localhost:8000 && cypress run"
   },
   "dependencies": {
     "@types/node": "^22.7.5",
@@ -48,7 +49,8 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.34.1"
+    "eslint-plugin-react": "^7.34.1",
+    "wait-on": "^8.0.1"
   },
   "resolutions": {
     "strip-ansi": "^6.0.0",
