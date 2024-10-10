@@ -1,11 +1,11 @@
 {
-  "name": "nextjs-template",
-  "description": "My favorite Next.js project",
+  "name": "trying-cypress",
+  "description": "🐌🐌🐌 Cypressを試してみる！",
   "author": "osawa-koki",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/osawa-koki/nextjs-template.git"
+    "url": "https://github.com/osawa-koki/trying-cypress.git"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -16,7 +16,6 @@
   "scripts": {
     "dev": "yarn next dev --port 8000",
     "build": "next build",
-    "start": "next start",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx .",
     "lint:fix": "eslint --fix --ext .ts,.tsx,.js,.jsx .",
     "type-check": "tsc --noEmit",
