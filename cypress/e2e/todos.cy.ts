@@ -37,18 +37,18 @@ describe('Todos page', () => {
     cy.get('input[name="create-todo"]').type(oldTodoName)
     cy.get('button').contains('Add').click()
 
-    cy.get('[name="save-todo"]').should('be.disabled')
+    cy.get('button[name="save-todo"]').should('be.disabled')
 
     cy.contains(oldTodoName).should('be.visible')
     cy.contains(oldTodoName).dblclick()
-    cy.get('[name="save-todo"]').should('not.be.disabled')
+    cy.get('button[name="save-todo"]').should('not.be.disabled')
 
     cy.get('input[name="edit-todo"]').type('{selectall}{backspace}')
-    cy.get('[name="save-todo"]').should('be.disabled')
+    cy.get('button[name="save-todo"]').should('be.disabled')
     cy.get('input[name="edit-todo"]').type(newTodoName)
 
-    cy.get('[name="save-todo"]').should('not.be.disabled')
-    cy.get('[name="save-todo"]').click()
+    cy.get('button[name="save-todo"]').should('not.be.disabled')
+    cy.get('button[name="save-todo"]').click()
 
     cy.get('div[role="alert"]').should('be.visible').and('contain', 'Todo updated')
     cy.get('.Toastify__toast').find('button').click()
@@ -72,7 +72,7 @@ describe('Todos page', () => {
       cy.contains(todoName.oldName).should('be.visible')
       cy.contains(todoName.oldName).dblclick()
       cy.get('input[name="edit-todo"]').type(`{selectall}{backspace}${todoName.newName}`)
-      cy.get('[name="save-todo"]').eq(index).click()
+      cy.get('button[name="save-todo"]').eq(index).click()
       cy.contains(todoName.newName).should('be.visible')
     })
   })
@@ -82,7 +82,7 @@ describe('Todos page', () => {
     cy.get('input[name="create-todo"]').type(todoName)
     cy.get('button').contains('Add').click()
     cy.contains(todoName).should('be.visible')
-    cy.get('[name="delete-todo"]').click()
+    cy.get('button[name="delete-todo"]').click()
     cy.contains(todoName).should('not.exist')
     cy.get('div[role="alert"]').should('be.visible').and('contain', 'Todo deleted')
     cy.get('.Toastify__toast').find('button').click()
@@ -105,10 +105,32 @@ describe('Todos page', () => {
     cy.get('table tbody tr').should('have.length', todoNames.length)
 
     todoNames.forEach((todoName, index) => {
-      cy.get('[name="delete-todo"]').first().click()
+      cy.get('button[name="delete-todo"]').first().click()
       cy.get('div[role="alert"]').should('be.visible').and('contain', 'Todo deleted')
       cy.get('table tbody tr').should('have.length', todoNames.length - index - 1)
     })
+
+    cy.contains('No todos found. Please add a todo.').should('be.visible')
+  })
+
+  it('can persist todos', () => {
+    // TODO: ローカルストレージに保存されているか確認
+    const todoName = 'Buy cheese'
+    cy.contains('No todos found. Please add a todo.').should('be.visible')
+    cy.get('input[name="create-todo"]').type(todoName)
+    cy.get('button').contains('Add').click()
+    cy.contains(todoName).should('be.visible')
+    cy.contains('No todos found. Please add a todo.').should('not.exist')
+
+    cy.reload()
+
+    cy.contains(todoName).should('be.visible')
+    cy.contains('No todos found. Please add a todo.').should('not.exist')
+
+    cy.get('button[name="delete-todo"]').first().click()
+    cy.contains(todoName).should('not.exist')
+
+    cy.reload()
 
     cy.contains('No todos found. Please add a todo.').should('be.visible')
   })
