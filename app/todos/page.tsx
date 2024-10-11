@@ -97,9 +97,9 @@ export default function TodosPage (): React.JSX.Element {
             <tbody>
               {todos.map((todo, index) => {
                 const editing = todo.tmpValue != null
-                const updatable = editing && todo.tmpValue !== todo.value && todo.tmpValue !== ''
+                const updatable = editing && todo.tmpValue !== ''
                 return (
-                  <tr key={index}>
+                  <tr key={todo.id}>
                     <td>{index + 1}</td>
                     <td>
                       {editing

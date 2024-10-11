@@ -41,8 +41,7 @@ describe('Todos page', () => {
 
     cy.contains(oldTodoName).should('be.visible')
     cy.contains(oldTodoName).dblclick()
-
-    cy.get('[name="save-todo"]').should('be.disabled')
+    cy.get('[name="save-todo"]').should('not.be.disabled')
 
     cy.get('input[name="edit-todo"]').type('{selectall}{backspace}')
     cy.get('[name="save-todo"]').should('be.disabled')
