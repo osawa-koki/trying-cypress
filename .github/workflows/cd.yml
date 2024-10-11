@@ -18,9 +18,52 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Build job
+  check:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v4
+        with:
+          path: ./node_modules/
+          key: node-modules-${{ matrix.node-version }}-${{ hashFiles('./**/yarn.lock') }}
+      - name: Cache Cypress binary
+        id: cypress_cache_id
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress/
+          key: cypress-${{ matrix.node-version }}-${{ hashFiles('./**/yarn.lock') }}
+      - name: Install dependencies
+        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile --non-interactive
+      - name: Install Cypress binary
+        if: steps.cypress_cache_id.outputs.cache-hit != 'true'
+        run: yarn cypress install
+      - name: Type check
+        run: yarn type-check
+      - name: Linter check
+        run: yarn lint
+      - name: Build
+        run: yarn build
+      - name: Run server
+        run: |
+          yarn server &
+          yarn wait-on-server
+      - name: Test
+        run: yarn cypress:run
+
   build:
     runs-on: ubuntu-22.04
+    needs: check
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -52,7 +95,6 @@ jobs:
         with:
           path: ./out/
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages
