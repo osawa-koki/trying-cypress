@@ -11,6 +11,9 @@ yarn install
 # 開発用実行
 yarn dev
 
+# E2Eテストの実行
+yarn cypress:run
+
 # ビルド
 yarn build
 ```
