@@ -37,10 +37,18 @@ describe('Todos page', () => {
     cy.get('input[name="create-todo"]').type(oldTodoName)
     cy.get('button').contains('Add').click()
 
+    cy.get('[name="save-todo"]').should('be.disabled')
+
     cy.contains(oldTodoName).should('be.visible')
     cy.contains(oldTodoName).dblclick()
 
-    cy.get('input[name="edit-todo"]').type(`{selectall}{backspace}${newTodoName}`)
+    cy.get('[name="save-todo"]').should('be.disabled')
+
+    cy.get('input[name="edit-todo"]').type('{selectall}{backspace}')
+    cy.get('[name="save-todo"]').should('be.disabled')
+    cy.get('input[name="edit-todo"]').type(newTodoName)
+
+    cy.get('[name="save-todo"]').should('not.be.disabled')
     cy.get('[name="save-todo"]').click()
 
     cy.get('div[role="alert"]').should('be.visible').and('contain', 'Todo updated')

@@ -95,26 +95,34 @@ export default function TodosPage (): React.JSX.Element {
               </tr>
             </thead>
             <tbody>
-              {todos.map((todo, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>
-                    {todo.tmpValue != null
-                      ? (
-                      <Form.Control name='edit-todo' type='text' value={todo.tmpValue ?? todo.value} onChange={(e) => { setTodos(todos.map((t) => t.id === todo.id ? { ...t, tmpValue: e.target.value } : t)) }} />
-                        )
-                      : (
-                        <div role='button' onDoubleClick={() => { setTodos(todos.map((t) => t.id === todo.id ? { ...t, tmpValue: t.value } : t)) }}>{todo.value}</div>
-                        )}
-                  </td>
-                  <td>
-                    <CiSaveDown1 name='save-todo' className={(todo.tmpValue == null || todo.tmpValue === '' || todo.tmpValue === todo.value) ? 'text-secondary' : 'text-success'} role='button' onClick={() => { handleUpdateTodo(todo.id) }} />
-                  </td>
-                  <td>
-                    <FaTrashAlt name='delete-todo' className='text-danger' role='button' onClick={() => { handleDeleteTodo(index) }} />
-                  </td>
-                </tr>
-              ))}
+              {todos.map((todo, index) => {
+                const editing = todo.tmpValue != null
+                const updatable = editing && todo.tmpValue !== todo.value && todo.tmpValue !== ''
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>
+                      {editing
+                        ? (
+                        <Form.Control name='edit-todo' type='text' value={todo.tmpValue ?? todo.value} onChange={(e) => { setTodos(todos.map((t) => t.id === todo.id ? { ...t, tmpValue: e.target.value } : t)) }} />
+                          )
+                        : (
+                          <div role='button' onDoubleClick={() => { setTodos(todos.map((t) => t.id === todo.id ? { ...t, tmpValue: t.value } : t)) }}>{todo.value}</div>
+                          )}
+                    </td>
+                    <td>
+                      <button name='save-todo' type='button' className={updatable ? 'text-success fw-bold' : 'text-secondary'} onClick={() => { handleUpdateTodo(todo.id) }} disabled={!updatable}>
+                        <CiSaveDown1 />
+                      </button>
+                    </td>
+                    <td>
+                      <button name='delete-todo' type='button' className='text-danger' onClick={() => { handleDeleteTodo(index) }}>
+                        <FaTrashAlt />
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </Table>
           )
