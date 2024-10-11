@@ -1,6 +1,6 @@
 describe('Todos page', () => {
   beforeEach(() => {
-    cy.visit('/todos')
+    cy.visit('/todos/')
   })
 
   it('has correct title', () => {
