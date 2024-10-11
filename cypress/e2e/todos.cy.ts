@@ -114,7 +114,6 @@ describe('Todos page', () => {
   })
 
   it('can persist todos', () => {
-    // TODO: ローカルストレージに保存されているか確認
     const todoName = 'Buy cheese'
     cy.contains('No todos found. Please add a todo.').should('be.visible')
     cy.get('input[name="create-todo"]').type(todoName)
